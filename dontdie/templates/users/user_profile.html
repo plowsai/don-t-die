@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section p-4">
+        <div class="user-info">
+            <img class="rounded-circle account-img" src="{{ image_file }}">
+            <div class="user-info-text">
+                <h2 class="account-heading">{{ user.first_name }} {{ user.last_name }}</h2>
+                <p class="text-secondary">@{{ user.username }}</p>
+                {% if user.bio %}
+                    <p>{{ user.bio }}</p>
+                {% endif %}
+                
+                {% if current_user.is_authenticated and current_user.id != user.id %}
+                    <div class="mt-2">
+                        {% if current_user.is_friend(user) %}
+                            <form action="{{ url_for('users.remove_friend', user_id=user.id) }}" method="POST" class="d-inline">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    <i class="fas fa-user-minus"></i> Remove Friend
+                                </button>
+                            </form>
+                        {% else %}
+                            <form action="{{ url_for('users.add_friend', user_id=user.id) }}" method="POST" class="d-inline">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                <button type="submit" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-user-plus"></i> Add Friend
+                                </button>
+                            </form>
+                        {% endif %}
+                        
+                        <a href="{{ url_for('tributes.new_tribute', username=user.username) }}" class="btn btn-sm btn-success">
+                            <i class="fas fa-pen"></i> Write Tribute
+                        </a>
+                    </div>
+                {% elif current_user.is_authenticated and current_user.id == user.id %}
+                    <a href="{{ url_for('users.profile') }}" class="btn btn-sm btn-outline-info">
+                        <i class="fas fa-edit"></i> Edit Profile
+                    </a>
+                    <a href="{{ url_for('tributes.new_tribute', username=user.username) }}" class="btn btn-sm btn-outline-success">
+                        <i class="fas fa-pen"></i> Write Self Tribute
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+        
+        {% if current_user.is_authenticated and current_user.id == user.id and visible_tributes %}
+            <div class="mt-4">
+                <h3 class="border-bottom pb-2 mb-4">Tributes People Have Written About You</h3>
+                {% for tribute in visible_tributes %}
+                    <div class="tribute-card">
+                        <div class="d-flex align-items-center mb-2">
+                            <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + tribute.author.image_file) }}">
+                            <div>
+                                <h5 class="mb-0">{{ tribute.title }}</h5>
+                                <small class="text-muted">By {{ tribute.author.first_name }} {{ tribute.author.last_name }}</small>
+                            </div>
+                        </div>
+                        <div class="tribute-content mb-2">
+                            {{ tribute.content|safe }}
+                        </div>
+                        <div>
+                            <a href="{{ url_for('tributes.tribute', tribute_id=tribute.id) }}" class="btn btn-sm btn-outline-info">View Full Tribute</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock content %} 

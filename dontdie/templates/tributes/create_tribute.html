@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                {% if legend %}
+                    <legend class="border-bottom mb-4">{{ legend }}</legend>
+                {% else %}
+                    <legend class="border-bottom mb-4">Write a Tribute for {{ recipient.first_name }}</legend>
+                {% endif %}
+                
+                <p class="text-muted mb-4">
+                    Share what you appreciate about {{ recipient.first_name }}. 
+                    These are the things you'd want them to know if they were gone.
+                </p>
+                
+                <div class="mb-3">
+                    {{ form.title.label(class="form-label") }}
+                    {% if form.title.errors %}
+                        {{ form.title(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.title.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.title(class="form-control") }}
+                    {% endif %}
+                </div>
+                <div class="mb-3">
+                    {{ form.content.label(class="form-label") }}
+                    {% if form.content.errors %}
+                        {{ form.content(class="form-control is-invalid", rows="10") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.content.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.content(class="form-control", rows="10") }}
+                    {% endif %}
+                    <small class="form-text text-muted">
+                        Write from the heart. Be authentic and genuine in your tribute.
+                    </small>
+                </div>
+                <div class="form-check mb-3">
+                    {{ form.is_visible(class="form-check-input") }}
+                    {{ form.is_visible.label(class="form-check-label") }}
+                    <div class="form-text">
+                        If checked, {{ recipient.first_name }} will be able to see this tribute.
+                        If unchecked, it will be saved but only visible to you until you decide to share it.
+                    </div>
+                </div>
+            </fieldset>
+            <div class="mb-3">
+                {{ form.submit(class="btn btn-primary") }}
+                <a class="btn btn-secondary" href="{{ url_for('users.user_profile', username=recipient.username) }}">Cancel</a>
+            </div>
+        </form>
+    </div>
+{% endblock content %} 

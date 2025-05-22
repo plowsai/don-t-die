@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="landing-hero">
+        <h1>Don't Die</h1>
+        <p>Share what you appreciate about your loved ones. Because sometimes people need to know while they're still here.</p>
+        <div>
+            <a href="{{ url_for('users.register') }}" class="btn btn-primary btn-lg me-2">Join Now</a>
+            <a href="{{ url_for('main.about') }}" class="btn btn-outline-light btn-lg">Learn More</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    <i class="fas fa-user-friends fa-3x mb-3 text-primary"></i>
+                    <h3 class="card-title">Connect</h3>
+                    <p class="card-text">Connect with friends and family in an authentic way.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    <i class="fas fa-heart fa-3x mb-3 text-danger"></i>
+                    <h3 class="card-title">Express</h3>
+                    <p class="card-text">Share what you appreciate about the important people in your life.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    <i class="fas fa-smile fa-3x mb-3 text-warning"></i>
+                    <h3 class="card-title">Support</h3>
+                    <p class="card-text">Be there for someone when they need to know they matter.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <h2 class="text-center mb-4">How It Works</h2>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-1 me-2"></i> Create an account</h5>
+                        <p class="card-text">Sign up with your real identity. This platform is about authenticity.</p>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-2 me-2"></i> Connect with friends</h5>
+                        <p class="card-text">Find and add friends and family members you care about.</p>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-3 me-2"></i> Write tributes</h5>
+                        <p class="card-text">Share what you appreciate about them - what you'd want them to know if they were gone.</p>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-4 me-2"></i> Control visibility</h5>
+                        <p class="card-text">Decide when your tributes are visible to the recipient.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <a href="{{ url_for('users.register') }}" class="btn btn-primary btn-lg">Get Started</a>
+        </div>
+    </div>
+{% endblock content %} 
