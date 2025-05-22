@@ -33,17 +33,13 @@ def new_tribute(username):
                           form=form, recipient=recipient)
 
 @tributes.route('/tribute/<int:tribute_id>')
-@login_required
 def tribute(tribute_id):
     tribute = Tribute.query.get_or_404(tribute_id)
     
-    # Only author can see non-visible tributes
-    if not tribute.is_visible and tribute.author_id != current_user.id:
-        abort(403)
-        
-    # Only author and recipient can see tributes
-    if tribute.author_id != current_user.id and tribute.recipient_id != current_user.id:
-        abort(403)
+    # Check if tribute is visible
+    if not tribute.is_visible and (not current_user.is_authenticated or tribute.recipient_id != current_user.id):
+        flash('This tribute is not publicly visible.', 'info')
+        return redirect(url_for('main.tributes'))
         
     return render_template('tributes/tribute.html', title=tribute.title, tribute=tribute)
 

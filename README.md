@@ -98,3 +98,22 @@ A social network that allows users to share meaningful messages with friends and
 ## License
 
 MIT
+
+## Running the Application
+
+### Development Mode
+```bash
+python run.py
+```
+
+### Production Mode with Gunicorn
+```bash
+# Run with default settings
+gunicorn wsgi:app
+
+# Run with configuration file
+gunicorn -c gunicorn_config.py wsgi:app
+
+# Run in background with logs
+gunicorn -c gunicorn_config.py wsgi:app --daemon --log-file gunicorn.log
+```

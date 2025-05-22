@@ -18,6 +18,9 @@ body {
     margin-top: 5rem;
     font-family: 'Poppins', 'Roboto', sans-serif;
     line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .site-header .navbar {
@@ -276,6 +279,8 @@ footer {
     color: white;
     padding: 20px 0;
     margin-top: 50px;
+    width: 100%;
+    flex-shrink: 0;
 }
 
 /* Globe container */
@@ -302,4 +307,13 @@ footer {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--primary-color);
+}
+
+/* Sticky footer setup */
+html, body {
+    height: 100%;
+}
+
+main {
+    flex: 1 0 auto;
 } 

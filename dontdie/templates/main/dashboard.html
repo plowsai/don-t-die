@@ -1,98 +1,99 @@
 {% extends "layout.html" %}
 {% block content %}
     <div class="content-section p-4">
-        <h2 class="mb-4">Welcome, {{ current_user.first_name }}!</h2>
+        <h1 class="mb-4">Welcome, {{ current_user.first_name }}!</h1>
         
         <div class="row">
-            <div class="col-md-12">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <i class="fas fa-quote-left text-muted me-2"></i>
-                            Your Tributes
-                        </h4>
-                        {% if tributes %}
-                            <p class="card-text">You have {{ tributes|length }} tribute{% if tributes|length != 1 %}s{% endif %} from people who appreciate you.</p>
-                            <a href="{{ url_for('tributes.my_tributes') }}" class="btn btn-outline-primary">View All</a>
+            <!-- Profile Summary -->
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0"><i class="fas fa-user mr-2"></i> Your Profile</h4>
+                    </div>
+                    <div class="card-body text-center">
+                        <img class="rounded-circle account-img mb-3" src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}" alt="{{ current_user.username }}">
+                        <h4 class="mb-1">{{ current_user.first_name }} {{ current_user.last_name }}</h4>
+                        <p class="text-muted">@{{ current_user.username }}</p>
+                        {% if current_user.bio %}
+                            <p>{{ current_user.bio }}</p>
                         {% else %}
-                            <p class="card-text">You don't have any visible tributes yet. Connect with friends to receive tributes!</p>
+                            <p class="text-muted">No bio yet. <a href="{{ url_for('users.profile') }}">Add one!</a></p>
+                        {% endif %}
+                        <a href="{{ url_for('users.profile') }}" class="btn btn-sm btn-outline-primary mt-2">Edit Profile</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tributes Received -->
+            <div class="col-lg-8 mb-4">
+                <div class="card h-100">
+                    <div class="card-header bg-success text-white">
+                        <h4 class="mb-0"><i class="fas fa-heart mr-2"></i> Tributes For You</h4>
+                    </div>
+                    <div class="card-body">
+                        {% if tributes %}
+                            <div class="list-group">
+                                {% for tribute in tributes %}
+                                    <div class="list-group-item list-group-item-action flex-column align-items-start">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">{{ tribute.title }}</h5>
+                                            <small class="text-muted">{{ tribute.created_at.strftime('%Y-%m-%d') }}</small>
+                                        </div>
+                                        <p class="mb-1">{{ tribute.content|truncate(100) }}</p>
+                                        <small>
+                                            From <a href="{{ url_for('users.user_profile', username=tribute.author.username) }}">{{ tribute.author.username }}</a>
+                                            <a href="{{ url_for('tributes.tribute', tribute_id=tribute.id) }}" class="float-right">Read More</a>
+                                        </small>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="text-center py-4">
+                                <i class="fas fa-comment-slash fa-3x text-muted mb-3"></i>
+                                <p>No tributes yet. As your friends write tributes for you, they'll appear here.</p>
+                            </div>
                         {% endif %}
                     </div>
                 </div>
             </div>
         </div>
         
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card mb-4">
+        <!-- Friends Section -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h4 class="mb-0"><i class="fas fa-users mr-2"></i> Your Friends</h4>
+                    </div>
                     <div class="card-body">
-                        <h4 class="card-title">
-                            <i class="fas fa-user-friends text-primary me-2"></i>
-                            Your Friends
-                        </h4>
                         {% if friends %}
-                            <p class="card-text">You have {{ current_user.friends.count() }} friend{% if current_user.friends.count() != 1 %}s{% endif %}.</p>
-                            <div class="mt-3">
+                            <div class="row">
                                 {% for friend in friends %}
-                                    <div class="friend-card">
-                                        <img src="{{ url_for('static', filename='profile_pics/' + friend.image_file) }}" alt="{{ friend.username }}">
-                                        <div class="friend-card-info">
-                                            <a href="{{ url_for('users.user_profile', username=friend.username) }}">
-                                                {{ friend.first_name }} {{ friend.last_name }}
-                                            </a>
+                                    <div class="col-md-4 mb-3">
+                                        <div class="friend-card">
+                                            <img src="{{ url_for('static', filename='profile_pics/' + friend.image_file) }}" alt="{{ friend.username }}">
+                                            <div class="friend-card-info">
+                                                <h5 class="mb-0">{{ friend.first_name }} {{ friend.last_name }}</h5>
+                                                <p class="text-muted mb-0">@{{ friend.username }}</p>
+                                            </div>
+                                            <a href="{{ url_for('users.user_profile', username=friend.username) }}" class="btn btn-sm btn-outline-primary ml-auto">View</a>
                                         </div>
-                                        <a href="{{ url_for('tributes.new_tribute', username=friend.username) }}" class="btn btn-sm btn-outline-success">
-                                            <i class="fas fa-pen"></i> Write
-                                        </a>
                                     </div>
                                 {% endfor %}
                             </div>
-                            <a href="{{ url_for('users.friends') }}" class="btn btn-outline-primary mt-3">View All Friends</a>
+                            <div class="text-center mt-3">
+                                <a href="{{ url_for('users.friends') }}" class="btn btn-outline-info">View All Friends</a>
+                                <a href="{{ url_for('users.all_users') }}" class="btn btn-outline-secondary ml-2">Find More Friends</a>
+                            </div>
                         {% else %}
-                            <p class="card-text">You haven't added any friends yet.</p>
-                            <a href="{{ url_for('users.all_users') }}" class="btn btn-primary">Find Friends</a>
+                            <div class="text-center py-4">
+                                <i class="fas fa-user-friends fa-3x text-muted mb-3"></i>
+                                <p>You haven't added any friends yet.</p>
+                                <a href="{{ url_for('users.all_users') }}" class="btn btn-primary mt-2">Find Friends</a>
+                            </div>
                         {% endif %}
                     </div>
                 </div>
-            </div>
-            
-            <div class="col-md-6">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <i class="fas fa-pen text-success me-2"></i>
-                            Write Tributes
-                        </h4>
-                        <p class="card-text">Share what you appreciate about your friends and family.</p>
-                        <p>Writing tributes for people you care about helps them understand their impact on your life.</p>
-                        
-                        <div class="mt-3">
-                            <a href="{{ url_for('users.all_users') }}" class="btn btn-outline-primary">Find People</a>
-                            {% if friends %}
-                                <a href="{{ url_for('users.friends') }}" class="btn btn-success">Write for Friends</a>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-                
-                {% if tributes %}
-                    <div class="card">
-                        <div class="card-header">
-                            Recent Tributes About You
-                        </div>
-                        <div class="card-body">
-                            {% for tribute in tributes[:2] %}
-                                <div class="mb-3">
-                                    <h5 class="card-title">{{ tribute.title }}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">By {{ tribute.author.first_name }} {{ tribute.author.last_name }}</h6>
-                                    <p class="card-text">{{ tribute.content|truncate(100) }}</p>
-                                    <a href="{{ url_for('tributes.tribute', tribute_id=tribute.id) }}" class="card-link">Read Full Tribute</a>
-                                </div>
-                                {% if not loop.last %}<hr>{% endif %}
-                            {% endfor %}
-                        </div>
-                    </div>
-                {% endif %}
             </div>
         </div>
     </div>
