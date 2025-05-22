@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <style>
+    .st0{fill:#f8f9fa}.st1{fill:#e9ecef}.st2{fill:#4e54c8}.st3{fill:#8f94fb}.st4{fill:#212529}.st5{fill:#ffffff}
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    #floating-elements { animation: float 6s ease-in-out infinite; }
+    #gear { transform-origin: center; animation: spin 10s linear infinite; }
+  </style>
+  
+  <!-- Background circle -->
+  <circle cx="250" cy="250" r="200" class="st1" />
+  
+  <!-- Floating elements group -->
+  <g id="floating-elements">
+    <!-- 404 text -->
+    <g transform="translate(155, 170)">
+      <path d="M0,100 L40,0 L40,100 M60,100 L60,0 L100,0 L100,40 L60,40 M120,100 L160,0 L160,100" class="st2" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </g>
+    
+    <!-- Paper plane -->
+    <g transform="translate(90, 120)">
+      <path d="M0,10 L30,0 L15,20 z" class="st3" />
+      <path d="M30,0 L15,20 L20,15 z" class="st2" />
+    </g>
+    
+    <!-- Clouds -->
+    <g transform="translate(320, 130)">
+      <circle cx="20" cy="10" r="10" class="st5" />
+      <circle cx="30" cy="15" r="8" class="st5" />
+      <circle cx="10" cy="15" r="8" class="st5" />
+    </g>
+    <g transform="translate(150, 100)">
+      <circle cx="15" cy="10" r="8" class="st5" />
+      <circle cx="25" cy="12" r="6" class="st5" />
+      <circle cx="8" cy="12" r="6" class="st5" />
+    </g>
+  </g>
+  
+  <!-- Compass -->
+  <g transform="translate(200, 290)">
+    <circle cx="50" cy="50" r="45" fill="#ffffff" stroke="#4e54c8" stroke-width="2" />
+    <circle cx="50" cy="50" r="5" fill="#4e54c8" />
+    <path d="M50,10 L50,20 M50,80 L50,90 M10,50 L20,50 M80,50 L90,50" stroke="#4e54c8" stroke-width="2" />
+    <path d="M50,50 L70,30" stroke="#ff6b6b" stroke-width="2" stroke-linecap="round" />
+    <path d="M50,50 L30,70" stroke="#4e54c8" stroke-width="2" stroke-linecap="round" />
+  </g>
+  
+  <!-- Gear -->
+  <g id="gear" transform="translate(320, 280)">
+    <circle cx="30" cy="30" r="20" fill="#8f94fb" />
+    <circle cx="30" cy="30" r="10" fill="#ffffff" />
+    <path d="M30,0 L34,10 M30,60 L26,50 M0,30 L10,34 M60,30 L50,26 M9,9 L16,16 M51,51 L44,44 M9,51 L16,44 M51,9 L44,16" stroke="#8f94fb" stroke-width="6" stroke-linecap="round" />
+  </g>
+  
+  <!-- Message -->
+  <text x="250" y="380" font-family="Poppins, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" class="st2">Oops! We've lost our way.</text>
+</svg> 
