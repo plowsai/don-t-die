@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section p-4">
+        <h2 class="mb-4">Find Friends</h2>
+        
+        <div class="mb-4">
+            <p class="text-muted">
+                Connect with friends and family to share meaningful tributes.
+            </p>
+        </div>
+        
+        {% if users %}
+            <div class="row">
+                {% for user in users %}
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <img class="rounded-circle mr-3" src="{{ url_for('static', filename='profile_pics/' + user.image_file) }}" alt="{{ user.username }}" style="width: 64px; height: 64px;">
+                                    <div class="ms-3">
+                                        <h5 class="card-title mb-0">{{ user.first_name }} {{ user.last_name }}</h5>
+                                        <p class="text-muted mb-0">@{{ user.username }}</p>
+                                    </div>
+                                </div>
+                                
+                                {% if user.bio %}
+                                    <p class="card-text">{{ user.bio|truncate(100) }}</p>
+                                {% else %}
+                                    <p class="card-text text-muted fst-italic">No bio available</p>
+                                {% endif %}
+                                
+                                <div class="d-flex mt-3">
+                                    <a href="{{ url_for('users.user_profile', username=user.username) }}" class="btn btn-sm btn-outline-primary me-2">
+                                        <i class="fas fa-user"></i> View Profile
+                                    </a>
+                                    
+                                    {% if current_user.is_friend(user) %}
+                                        <form action="{{ url_for('users.remove_friend', user_id=user.id) }}" method="POST" class="d-inline">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                <i class="fas fa-user-minus"></i> Remove Friend
+                                            </button>
+                                        </form>
+                                    {% else %}
+                                        <form action="{{ url_for('users.add_friend', user_id=user.id) }}" method="POST" class="d-inline">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                            <button type="submit" class="btn btn-sm btn-primary">
+                                                <i class="fas fa-user-plus"></i> Add Friend
+                                            </button>
+                                        </form>
+                                    {% endif %}
+                                    
+                                    {% if current_user.is_friend(user) %}
+                                        <a href="{{ url_for('tributes.new_tribute', username=user.username) }}" class="btn btn-sm btn-success ms-2">
+                                            <i class="fas fa-pen"></i> Write Tribute
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                <p class="mb-0">No other users found.</p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock content %} 

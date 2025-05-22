@@ -1,0 +1,118 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section p-4">
+        <h2 class="mb-4">My Tributes</h2>
+        
+        <ul class="nav nav-tabs mb-4" id="tributesTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="written-tab" data-bs-toggle="tab" data-bs-target="#written" type="button" role="tab" aria-controls="written" aria-selected="true">
+                    Tributes I've Written
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="received-tab" data-bs-toggle="tab" data-bs-target="#received" type="button" role="tab" aria-controls="received" aria-selected="false">
+                    Tributes About Me
+                </button>
+            </li>
+        </ul>
+        
+        <div class="tab-content" id="tributesTabsContent">
+            <div class="tab-pane fade show active" id="written" role="tabpanel" aria-labelledby="written-tab">
+                {% if tributes_written %}
+                    <div class="d-flex justify-content-between mb-3">
+                        <p class="text-muted">You've written {{ tributes_written|length }} tribute{% if tributes_written|length != 1 %}s{% endif %}.</p>
+                        <a href="{{ url_for('users.friends') }}" class="btn btn-success">
+                            <i class="fas fa-pen"></i> Write New Tribute
+                        </a>
+                    </div>
+                    
+                    {% for tribute in tributes_written %}
+                        <div class="tribute-card">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <div>
+                                    <h4 class="mb-0">{{ tribute.title }}</h4>
+                                    <p class="text-muted mb-0">
+                                        For <a href="{{ url_for('users.user_profile', username=tribute.recipient.username) }}">{{ tribute.recipient.first_name }} {{ tribute.recipient.last_name }}</a>
+                                    </p>
+                                </div>
+                                <div>
+                                    {% if tribute.is_visible %}
+                                        <span class="badge bg-success">Visible</span>
+                                    {% else %}
+                                        <span class="badge bg-warning text-dark">Private</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                {{ tribute.content|truncate(150) }}
+                                {% if tribute.content|length > 150 %}
+                                    <a href="{{ url_for('tributes.tribute', tribute_id=tribute.id) }}">Read more</a>
+                                {% endif %}
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <small class="text-muted">Created on {{ tribute.created_at.strftime('%B %d, %Y') }}</small>
+                                </div>
+                                <div>
+                                    <a href="{{ url_for('tributes.tribute', tribute_id=tribute.id) }}" class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-eye"></i> View
+                                    </a>
+                                    <a href="{{ url_for('tributes.update_tribute', tribute_id=tribute.id) }}" class="btn btn-sm btn-outline-secondary">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                    <a href="{{ url_for('tributes.update_visibility', tribute_id=tribute.id) }}" class="btn btn-sm btn-outline-info">
+                                        <i class="fas fa-eye{% if not tribute.is_visible %}-slash{% endif %}"></i> Visibility
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-info">
+                        <p class="mb-0">You haven't written any tributes yet. <a href="{{ url_for('users.friends') }}">Connect with friends</a> to write tributes for them.</p>
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div class="tab-pane fade" id="received" role="tabpanel" aria-labelledby="received-tab">
+                {% if tributes_received %}
+                    <p class="text-muted mb-3">You have {{ tributes_received|length }} tribute{% if tributes_received|length != 1 %}s{% endif %} written about you.</p>
+                    
+                    {% for tribute in tributes_received %}
+                        <div class="tribute-card">
+                            <div class="d-flex align-items-center mb-2">
+                                <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + tribute.author.image_file) }}">
+                                <div>
+                                    <h4 class="mb-0">{{ tribute.title }}</h4>
+                                    <p class="text-muted mb-0">
+                                        By <a href="{{ url_for('users.user_profile', username=tribute.author.username) }}">{{ tribute.author.first_name }} {{ tribute.author.last_name }}</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                {{ tribute.content|truncate(150) }}
+                                {% if tribute.content|length > 150 %}
+                                    <a href="{{ url_for('tributes.tribute', tribute_id=tribute.id) }}">Read more</a>
+                                {% endif %}
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <small class="text-muted">Created on {{ tribute.created_at.strftime('%B %d, %Y') }}</small>
+                                </div>
+                                <div>
+                                    <a href="{{ url_for('tributes.tribute', tribute_id=tribute.id) }}" class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-eye"></i> View Full Tribute
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-info">
+                        <p class="mb-0">You don't have any tributes written about you yet. <a href="{{ url_for('users.all_users') }}">Connect with friends</a> who might write tributes for you.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock content %} 

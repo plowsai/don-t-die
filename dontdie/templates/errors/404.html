@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section text-center p-5">
+        <h1 class="display-4">404</h1>
+        <p class="lead">Page Not Found</p>
+        <div class="mt-4">
+            <p>The page you are looking for doesn't exist or has been moved.</p>
+            <a href="{{ url_for('main.home') }}" class="btn btn-outline-primary">
+                <i class="fas fa-home"></i> Go to Home
+            </a>
+        </div>
+    </div>
+{% endblock content %} 

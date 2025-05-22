@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section p-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="mb-0">Update Tribute Visibility</h2>
+            <a href="{{ url_for('tributes.tribute', tribute_id=tribute.id) }}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left"></i> Back to Tribute
+            </a>
+        </div>
+        
+        <div class="alert alert-info">
+            <h4 class="alert-heading">Visibility Settings</h4>
+            <p>
+                Control whether this tribute is visible to {{ tribute.recipient.first_name }}. 
+                When a tribute is visible, the recipient can see and read it.
+            </p>
+            <hr>
+            <p class="mb-0">
+                <strong>Current status:</strong> 
+                {% if tribute.is_visible %}
+                    <span class="badge bg-success">Visible to {{ tribute.recipient.first_name }}</span>
+                {% else %}
+                    <span class="badge bg-warning text-dark">Private (only visible to you)</span>
+                {% endif %}
+            </p>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h5>Tribute Details</h5>
+            </div>
+            <div class="card-body">
+                <h4>{{ tribute.title }}</h4>
+                <p class="text-muted">
+                    For {{ tribute.recipient.first_name }} {{ tribute.recipient.last_name }}
+                </p>
+                <div class="mb-3">
+                    {{ tribute.content|truncate(200) }}
+                    {% if tribute.content|length > 200 %}
+                        <a href="{{ url_for('tributes.tribute', tribute_id=tribute.id) }}">Read more</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5>Update Visibility</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <div class="form-check mb-3">
+                        {{ form.is_visible(class="form-check-input") }}
+                        {{ form.is_visible.label(class="form-check-label") }}
+                        <div class="form-text">
+                            If checked, {{ tribute.recipient.first_name }} will be able to see this tribute.
+                            If unchecked, it will be private and only visible to you.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        {{ form.submit(class="btn btn-primary") }}
+                        <a href="{{ url_for('tributes.tribute', tribute_id=tribute.id) }}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %} 

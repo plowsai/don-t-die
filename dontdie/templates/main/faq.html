@@ -1,0 +1,102 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section p-4">
+        <h1 class="mb-4">Frequently Asked Questions</h1>
+        
+        <div class="accordion" id="faqAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        What is "Don't Die"?
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        <p>Don't Die is a social platform designed to help people share meaningful messages with their friends and family - the things they'd want them to know if they were no longer here. It's a space for authentic connection and to remind people how much they matter.</p>
+                        <p>We call these messages "tributes" - they're like pre-eulogies that can be shared with people while they're still alive, when the words can truly make a difference.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Why should I use Don't Die?
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        <p>Too often, we save our most heartfelt words for eulogies - when the person who needs to hear them most is gone. Don't Die flips this concept by encouraging people to share these meaningful messages during life.</p>
+                        <p>When someone is struggling with depression or thoughts of suicide, knowing how valued they are by their loved ones can provide critical perspective and hope.</p>
+                        <p>Even for those not experiencing crisis, receiving the gift of knowing how much you matter to someone can be profoundly moving and strengthen your relationships.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        How does it work?
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        <ol>
+                            <li><strong>Create an account</strong> - Sign up with your real identity. This platform is about authenticity.</li>
+                            <li><strong>Connect with friends</strong> - Find and add friends and family members you care about.</li>
+                            <li><strong>Write tributes</strong> - Share what you appreciate about them - what you'd want them to know if they were gone.</li>
+                            <li><strong>Control visibility</strong> - You can keep tributes private until you're ready to share them, or make them visible right away.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFour">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        Can I use Don't Die anonymously?
+                    </button>
+                </h2>
+                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        <p>No. Don't Die is built on the principle of authenticity. All accounts must use real identities, and all tributes are connected to the author who wrote them.</p>
+                        <p>The power of these tributes comes from knowing they're genuine expressions from real people in your life who care about you.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFive">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                        Who can see my tributes?
+                    </button>
+                </h2>
+                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        <p>Tributes are only visible to the author (you) and the recipient (when you choose to make them visible). This creates a private, meaningful space for genuine connection.</p>
+                        <p>You control the visibility of each tribute you write. You can keep them private until you're ready to share them, or make them visible right away.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingSix">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                        I'm experiencing thoughts of suicide. What should I do?
+                    </button>
+                </h2>
+                <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        <p>If you're experiencing thoughts of suicide or need immediate support, please reach out for help:</p>
+                        <ul>
+                            <li><strong>National Suicide Prevention Lifeline:</strong> 1-800-273-8255</li>
+                            <li><strong>Crisis Text Line:</strong> Text HOME to 741741</li>
+                            <li><strong>International Association for Suicide Prevention:</strong> <a href="https://www.iasp.info/resources/Crisis_Centres/" target="_blank">Find a crisis center near you</a></li>
+                        </ul>
+                        <p>Remember: You matter. You are valued. And there are people who care about you.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %} 
