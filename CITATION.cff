@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Plows
+    given-names: Jordan
+title: "Don't Die - A Meaningful Social Network"
+version: 1.0.0
+date-released: 2025-05-21
+url: "https://github.com/jordanplows/dont-die"
+repository-code: "https://github.com/jordanplows/dont-die"
+license: MIT
+abstract: >-
+  Don't Die is a social network that allows users to share meaningful messages with friends and family - 
+  the things they'd want others to know if they were no longer here. 
+  The purpose is to create a space of authentic connection and remind people how much they matter.
+keywords:
+  - social-network
+  - flask
+  - python
+  - mental-health
+  - community
+references:
+  - type: software
+    authors:
+      - name: Flask Team
+    title: Flask
+    url: https://flask.palletsprojects.com
+  - type: software
+    authors:
+      - name: Bootstrap Team
+    title: Bootstrap
+    url: https://getbootstrap.com 
