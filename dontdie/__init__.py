@@ -5,6 +5,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_wtf.csrf import CSRFProtect
 from dotenv import load_dotenv
+from datetime import datetime
 
 # Load environment variables
 load_dotenv()
@@ -42,6 +43,11 @@ def create_app(config_class=None):
     app.register_blueprint(users)
     app.register_blueprint(tributes)
     app.register_blueprint(errors)
+    
+    # Register context processors
+    @app.context_processor
+    def inject_current_year():
+        return dict(current_year=datetime.now())
     
     # Create database tables if they don't exist
     with app.app_context():
