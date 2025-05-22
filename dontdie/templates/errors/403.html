@@ -1,13 +1,25 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div class="content-section text-center p-5">
-        <h1 class="display-4">403</h1>
-        <p class="lead">Access Forbidden</p>
-        <div class="mt-4">
-            <p>You don't have permission to access this resource.</p>
-            <a href="{{ url_for('main.home') }}" class="btn btn-outline-primary">
-                <i class="fas fa-home"></i> Go to Home
+<div class="error-page text-center py-5">
+    <div class="content-section p-5">
+        <div class="error-icon mb-4">
+            <i class="fas fa-lock fa-4x text-muted"></i>
+        </div>
+        <h1 class="display-4 mb-4">403 - Access Forbidden</h1>
+        <p class="lead mb-4">You don't have permission to access this resource.</p>
+        <div class="error-actions mt-4">
+            <a href="{{ url_for('main.home') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-home mr-2"></i>
+                Return to Home
+            </a>
+            <a href="{{ url_for('users.login') }}" class="btn btn-outline-secondary btn-lg ml-3">
+                <i class="fas fa-sign-in-alt mr-2"></i>
+                Login
             </a>
         </div>
+        <div class="mt-5">
+            <img src="{{ url_for('static', filename='403.svg') }}" alt="403 Illustration" style="max-width: 300px;">
+        </div>
     </div>
+</div>
 {% endblock content %} 

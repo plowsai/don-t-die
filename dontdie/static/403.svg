@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <style>
+    .st0{fill:#f8f9fa}.st1{fill:#e9ecef}.st2{fill:#4e54c8}.st3{fill:#8f94fb}.st4{fill:#212529}.st5{fill:#ffffff}
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+    }
+    #lock { transform-origin: center; }
+    #lock:hover { animation: shake 0.5s ease-in-out; }
+    #shield { animation: pulse 3s infinite; }
+  </style>
+  
+  <!-- Background circle -->
+  <circle cx="250" cy="250" r="200" class="st1" />
+  
+  <!-- Shield -->
+  <g id="shield" transform="translate(150, 120)">
+    <path d="M100,0 L200,0 L180,150 L100,190 L20,150 L0,0 Z" fill="#8f94fb" />
+    <path d="M100,20 L170,20 L155,140 L100,170 L45,140 L30,20 Z" fill="#ffffff" />
+  </g>
+  
+  <!-- Lock -->
+  <g id="lock" transform="translate(175, 145)">
+    <rect x="50" y="70" width="50" height="60" rx="5" fill="#4e54c8" />
+    <path d="M60,70 L60,50 C60,33.4 73.4,20 90,20 C106.6,20 120,33.4 120,50 L120,70" fill="none" stroke="#4e54c8" stroke-width="12" stroke-linecap="round" />
+    <circle cx="75" cy="100" r="8" fill="#ffffff" />
+    <rect x="71" y="100" width="8" height="15" fill="#ffffff" />
+  </g>
+  
+  <!-- 403 Text -->
+  <g transform="translate(170, 300)">
+    <text x="0" y="0" font-family="Poppins, sans-serif" font-size="50" font-weight="bold" fill="#4e54c8">403</text>
+  </g>
+  
+  <!-- Stop Sign -->
+  <g transform="translate(330, 180)">
+    <polygon points="25,0 50,25 50,50 25,75 0,50 0,25" fill="#ff6b6b" />
+    <polygon points="25,10 40,25 40,50 25,65 10,50 10,25" fill="#ffffff" />
+    <text x="25" y="45" font-family="Arial, sans-serif" font-size="30" font-weight="bold" text-anchor="middle" fill="#ff6b6b">!</text>
+  </g>
+  
+  <!-- Error message -->
+  <text x="250" y="380" font-family="Poppins, sans-serif" font-size="16" font-weight="500" text-anchor="middle" fill="#212529">Access Forbidden</text>
+</svg> 

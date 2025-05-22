@@ -1,0 +1,180 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section p-5">
+    <h1 class="mb-4 text-center">Mental Health Resources</h1>
+    <p class="lead text-center mb-5">Help is available. If you or someone you know is struggling, you are not alone.</p>
+    
+    <div class="row mb-5">
+        <div class="col-md-12">
+            <div class="alert alert-danger p-4 d-flex align-items-center">
+                <i class="fas fa-exclamation-triangle fa-3x mr-4"></i>
+                <div>
+                    <h4 class="alert-heading">In Crisis? Get Immediate Help</h4>
+                    <p class="mb-0">If you or someone you know is in immediate danger, call <strong>911</strong> right away.</p>
+                    <p class="mb-0">If you're having suicidal thoughts, call the <strong>National Suicide Prevention Lifeline</strong> at <strong>988</strong> or <strong>1-800-273-8255</strong> (available 24/7).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <!-- Hotlines -->
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0"><i class="fas fa-phone-alt mr-2"></i> Crisis Hotlines</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex align-items-center">
+                            <i class="fas fa-heart text-danger mr-3"></i>
+                            <div>
+                                <h5 class="mb-1">National Suicide Prevention Lifeline</h5>
+                                <p class="mb-0">Call 988 or 1-800-273-8255</p>
+                                <p class="text-muted small mb-0">Available 24/7</p>
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex align-items-center">
+                            <i class="fas fa-comment-dots text-info mr-3"></i>
+                            <div>
+                                <h5 class="mb-1">Crisis Text Line</h5>
+                                <p class="mb-0">Text HOME to 741741</p>
+                                <p class="text-muted small mb-0">Available 24/7</p>
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex align-items-center">
+                            <i class="fas fa-flag text-warning mr-3"></i>
+                            <div>
+                                <h5 class="mb-1">Veterans Crisis Line</h5>
+                                <p class="mb-0">Call 988 then press 1 or 1-800-273-8255 (press 1)</p>
+                                <p class="text-muted small mb-0">For veterans and military personnel</p>
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex align-items-center">
+                            <i class="fas fa-globe text-success mr-3"></i>
+                            <div>
+                                <h5 class="mb-1">Trevor Project (LGBTQ+)</h5>
+                                <p class="mb-0">Call 1-866-488-7386</p>
+                                <p class="text-muted small mb-0">For LGBTQ+ youth</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Online Resources -->
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0"><i class="fas fa-laptop mr-2"></i> Online Resources</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex align-items-center">
+                            <i class="fas fa-brain text-primary mr-3"></i>
+                            <div>
+                                <h5 class="mb-1">National Institute of Mental Health</h5>
+                                <p class="mb-0"><a href="https://www.nimh.nih.gov" target="_blank">www.nimh.nih.gov</a></p>
+                                <p class="text-muted small mb-0">Information and research on mental health</p>
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex align-items-center">
+                            <i class="fas fa-hand-holding-heart text-danger mr-3"></i>
+                            <div>
+                                <h5 class="mb-1">American Foundation for Suicide Prevention</h5>
+                                <p class="mb-0"><a href="https://afsp.org" target="_blank">afsp.org</a></p>
+                                <p class="text-muted small mb-0">Resources for suicide prevention and support</p>
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex align-items-center">
+                            <i class="fas fa-head-side-virus text-secondary mr-3"></i>
+                            <div>
+                                <h5 class="mb-1">Mental Health America</h5>
+                                <p class="mb-0"><a href="https://mhanational.org" target="_blank">mhanational.org</a></p>
+                                <p class="text-muted small mb-0">Screening tools and resources</p>
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex align-items-center">
+                            <i class="fas fa-user-friends text-info mr-3"></i>
+                            <div>
+                                <h5 class="mb-1">7 Cups</h5>
+                                <p class="mb-0"><a href="https://www.7cups.com" target="_blank">www.7cups.com</a></p>
+                                <p class="text-muted small mb-0">Online therapy and free support</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Self-Care -->
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-info text-white">
+                    <h4 class="mb-0"><i class="fas fa-heart mr-2"></i> Self-Care Strategies</h4>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        <div class="list-group-item">
+                            <h5><i class="fas fa-walking text-success mr-2"></i> Physical Activity</h5>
+                            <p class="mb-0">Regular exercise can reduce stress and improve mood. Even a short daily walk can help.</p>
+                        </div>
+                        <div class="list-group-item">
+                            <h5><i class="fas fa-bed text-primary mr-2"></i> Proper Sleep</h5>
+                            <p class="mb-0">Aim for 7-9 hours of quality sleep. Establish a regular sleep schedule and relaxing bedtime routine.</p>
+                        </div>
+                        <div class="list-group-item">
+                            <h5><i class="fas fa-utensils text-warning mr-2"></i> Healthy Eating</h5>
+                            <p class="mb-0">A balanced diet can support brain health and energy levels. Stay hydrated and limit alcohol.</p>
+                        </div>
+                        <div class="list-group-item">
+                            <h5><i class="fas fa-smile text-danger mr-2"></i> Social Connection</h5>
+                            <p class="mb-0">Maintain relationships with supportive people. Share your feelings with trusted friends or family.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- How to Help -->
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-warning text-dark">
+                    <h4 class="mb-0"><i class="fas fa-hands-helping mr-2"></i> How to Help Someone</h4>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        <div class="list-group-item">
+                            <h5><i class="fas fa-comment text-primary mr-2"></i> Start a Conversation</h5>
+                            <p class="mb-0">Approach with care and concern. Let them know you care and are there to listen without judgment.</p>
+                        </div>
+                        <div class="list-group-item">
+                            <h5><i class="fas fa-headphones text-danger mr-2"></i> Listen Actively</h5>
+                            <p class="mb-0">Let them express their feelings. Don't interrupt or offer quick solutions. Validate their feelings.</p>
+                        </div>
+                        <div class="list-group-item">
+                            <h5><i class="fas fa-link text-success mr-2"></i> Connect to Resources</h5>
+                            <p class="mb-0">Help them find professional support. Offer to help make calls or accompany them to appointments.</p>
+                        </div>
+                        <div class="list-group-item">
+                            <h5><i class="fas fa-shield-alt text-info mr-2"></i> Safety First</h5>
+                            <p class="mb-0">If you believe someone is in immediate danger, don't leave them alone. Call emergency services.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-12 text-center">
+            <div class="content-section py-4">
+                <h4 class="mb-3">Remember: Seeking help is a sign of strength, not weakness.</h4>
+                <p>Mental health challenges affect millions of people worldwide. Recovery is possible with proper support and treatment.</p>
+                <a href="{{ url_for('main.home') }}" class="btn btn-primary mt-3">Return to Community</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %} 

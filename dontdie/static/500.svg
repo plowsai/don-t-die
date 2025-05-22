@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <style>
+    .st0{fill:#f8f9fa}.st1{fill:#e9ecef}.st2{fill:#4e54c8}.st3{fill:#8f94fb}.st4{fill:#212529}.st5{fill:#ffffff}
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    #gear-1 { animation: rotate 10s linear infinite; transform-origin: center; }
+    #gear-2 { animation: rotate 15s linear infinite reverse; transform-origin: center; }
+    #gear-3 { animation: rotate 8s linear infinite; transform-origin: center; }
+    #warning { animation: pulse 2s ease-in-out infinite; transform-origin: center; }
+  </style>
+  
+  <!-- Background circle -->
+  <circle cx="250" cy="250" r="200" class="st1" />
+  
+  <!-- Gears -->
+  <g id="gear-1" transform="translate(180, 180)">
+    <circle cx="50" cy="50" r="40" fill="#8f94fb" />
+    <circle cx="50" cy="50" r="15" fill="#ffffff" />
+    <path d="M50,0 L56,15 M50,100 L44,85 M0,50 L15,56 M100,50 L85,44 M14.6,14.6 L25,25 M85.4,85.4 L75,75 M14.6,85.4 L25,75 M85.4,14.6 L75,25" stroke="#8f94fb" stroke-width="10" stroke-linecap="round" />
+  </g>
+  
+  <g id="gear-2" transform="translate(260, 150)">
+    <circle cx="35" cy="35" r="30" fill="#4e54c8" />
+    <circle cx="35" cy="35" r="12" fill="#ffffff" />
+    <path d="M35,0 L39,10 M35,70 L31,60 M0,35 L10,39 M70,35 L60,31 M10,10 L17,17 M60,60 L53,53 M10,60 L17,53 M60,10 L53,17" stroke="#4e54c8" stroke-width="8" stroke-linecap="round" />
+  </g>
+  
+  <g id="gear-3" transform="translate(235, 240)">
+    <circle cx="25" cy="25" r="20" fill="#ff6b6b" />
+    <circle cx="25" cy="25" r="8" fill="#ffffff" />
+    <path d="M25,0 L28,8 M25,50 L22,42 M0,25 L8,28 M50,25 L42,22 M7,7 L13,13 M43,43 L37,37 M7,43 L13,37 M43,7 L37,13" stroke="#ff6b6b" stroke-width="5" stroke-linecap="round" />
+  </g>
+  
+  <!-- 500 Text -->
+  <g transform="translate(160, 320)">
+    <text x="0" y="0" font-family="Poppins, sans-serif" font-size="60" font-weight="bold" fill="#4e54c8">500</text>
+  </g>
+  
+  <!-- Warning symbol -->
+  <g id="warning" transform="translate(325, 200)">
+    <polygon points="20,0 40,35 0,35" fill="#ffc107" />
+    <text x="20" y="30" font-family="Arial, sans-serif" font-size="25" font-weight="bold" text-anchor="middle" fill="#212529">!</text>
+  </g>
+  
+  <!-- Error message -->
+  <text x="250" y="380" font-family="Poppins, sans-serif" font-size="16" font-weight="500" text-anchor="middle" fill="#212529">We're working on fixing this issue!</text>
+</svg> 

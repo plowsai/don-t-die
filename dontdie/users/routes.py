@@ -106,8 +106,9 @@ def user_profile(username):
 @users.route('/friends')
 @login_required
 def friends():
-    friends = current_user.friends.all()
-    return render_template('users/friends.html', title='My Friends', friends=friends)
+    # Get all friends
+    user_friends = current_user.friends.all()
+    return render_template('users/friends.html', title='My Friends', friends=user_friends)
 
 @users.route('/users')
 @login_required
