@@ -1,52 +1,110 @@
 import os
 import secrets
 from PIL import Image
-from flask import Blueprint, render_template, url_for, flash, redirect, request, current_app
+from flask import Blueprint, render_template, url_for, flash, redirect, request, current_app, session
 from flask_login import login_user, current_user, logout_user, login_required
-from dontdie import db, bcrypt
+from dontdie import db, bcrypt, mail
 from dontdie.models import User, Tribute
-from dontdie.users.forms import RegistrationForm, LoginForm, UpdateProfileForm
+from dontdie.users.forms import RegistrationForm, LoginForm, UpdateProfileForm, RequestResetForm, ResetPasswordForm
+from flask_mail import Message
+from dontdie.auth.auth_service import AuthService
+from functools import wraps
 
 users = Blueprint('users', __name__)
 
+# Custom login_required decorator using Supabase authentication
+def supabase_login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        # Check if user is authenticated with Supabase
+        if 'access_token' not in session:
+            flash('Please log in to access this page.', 'info')
+            return redirect(url_for('users.login'))
+        
+        # Get the current user from Supabase
+        user_data = AuthService.get_user()
+        if not user_data:
+            flash('Please log in to access this page.', 'info')
+            return redirect(url_for('users.login'))
+            
+        return f(*args, **kwargs)
+    return decorated_function
+
 @users.route('/register', methods=['GET', 'POST'])
 def register():
-    if current_user.is_authenticated:
+    if 'access_token' in session:
         return redirect(url_for('main.home'))
+        
     form = RegistrationForm()
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(
-            username=form.username.data,
-            email=form.email.data,
-            password=hashed_password,
-            first_name=form.first_name.data,
-            last_name=form.last_name.data
-        )
-        db.session.add(user)
-        db.session.commit()
-        flash('Your account has been created! You can now log in', 'success')
+        # Register with Supabase
+        metadata = {
+            'first_name': form.first_name.data,
+            'last_name': form.last_name.data,
+            'username': form.username.data
+        }
+        
+        result = AuthService.sign_up(form.email.data, form.password.data, metadata)
+        
+        if 'error' in result:
+            flash(f'Registration error: {result["error"]}', 'danger')
+            return render_template('users/register.html', title='Register', form=form)
+            
+        # If auto-confirm is disabled in Supabase, show message about confirmation email
+        flash('Your account has been created! Please check your email to confirm your registration before logging in.', 'success')
         return redirect(url_for('users.login'))
+            
     return render_template('users/register.html', title='Register', form=form)
 
 @users.route('/login', methods=['GET', 'POST'])
 def login():
-    if current_user.is_authenticated:
+    if 'access_token' in session:
         return redirect(url_for('main.home'))
+        
     form = LoginForm()
     if form.validate_on_submit():
+        # Login with Supabase
+        result = AuthService.sign_in(form.email.data, form.password.data)
+        
+        if 'error' in result:
+            flash(f'Login unsuccessful. Please check email and password. {result.get("error")}', 'danger')
+            return render_template('users/login.html', title='Login', form=form)
+            
+        # Get user data
+        user_data = AuthService.get_user()
+        
+        if not user_data:
+            flash('Error retrieving user data.', 'danger')
+            return render_template('users/login.html', title='Login', form=form)
+            
+        # Sync with our database
         user = User.query.filter_by(email=form.email.data).first()
-        if user and bcrypt.check_password_hash(user.password, form.password.data):
-            login_user(user, remember=form.remember.data)
-            next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('main.home'))
-        else:
-            flash('Login Unsuccessful. Please check email and password', 'danger')
+        
+        if not user:
+            # Create user in our database
+            user = User.create_from_supabase(user_data.user)
+        elif not user.supabase_uid:
+            # Update existing user with Supabase UID
+            user.supabase_uid = user_data.user.id
+            db.session.commit()
+            
+        # Login with Flask-Login as well for compatibility
+        login_user(user, remember=form.remember.data)
+        
+        next_page = request.args.get('next')
+        return redirect(next_page) if next_page else redirect(url_for('main.home'))
+            
     return render_template('users/login.html', title='Login', form=form)
 
 @users.route('/logout')
 def logout():
+    # Sign out of Supabase
+    if 'access_token' in session:
+        AuthService.sign_out()
+    
+    # Sign out of Flask-Login
     logout_user()
+    
     return redirect(url_for('main.home'))
 
 def save_picture(form_picture):
@@ -64,7 +122,7 @@ def save_picture(form_picture):
     return picture_fn
 
 @users.route('/profile', methods=['GET', 'POST'])
-@login_required
+@supabase_login_required
 def profile():
     form = UpdateProfileForm()
     if form.validate_on_submit():
@@ -140,4 +198,39 @@ def remove_friend(user_id):
     current_user.remove_friend(user)
     db.session.commit()
     flash(f'You are no longer friends with {user.username}.', 'info')
-    return redirect(url_for('users.friends')) 
+    return redirect(url_for('users.friends'))
+
+def send_reset_email(user):
+    token = user.get_reset_token()
+    msg = Message('Password Reset Request',
+                  recipients=[user.email])
+    msg.body = f'''To reset your password, visit the following link:
+{url_for('users.reset_token', token=token, _external=True)}
+
+If you did not make this request then simply ignore this email and no changes will be made.
+'''
+    mail.send(msg)
+
+@users.route("/reset_password", methods=['GET', 'POST'])
+def reset_request():
+    if 'access_token' in session:
+        return redirect(url_for('main.home'))
+        
+    form = RequestResetForm()
+    if form.validate_on_submit():
+        # Use Supabase password reset
+        result = AuthService.reset_password(form.email.data)
+        
+        if 'error' in result:
+            flash(f'Error: {result["error"]}', 'danger')
+        else:
+            flash('An email has been sent with instructions to reset your password.', 'info')
+            
+        return redirect(url_for('users.login'))
+    return render_template('users/reset_request.html', title='Reset Password', form=form)
+
+@users.route("/reset_password/<token>", methods=['GET', 'POST'])
+def reset_token(token):
+    # This is handled by Supabase directly, we just redirect
+    flash('Please follow the reset link in your email to reset your password.', 'info')
+    return redirect(url_for('users.login')) 
